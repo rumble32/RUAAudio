@@ -15,11 +15,14 @@
 		E1DE5F0C1D2A91D90067BC3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1DE5F0A1D2A91D90067BC3C /* LaunchScreen.storyboard */; };
 		E1DE5F171D2A91D90067BC3C /* RUAAudioDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DE5F161D2A91D90067BC3C /* RUAAudioDemoTests.swift */; };
 		E1DE5F221D2A91D90067BC3C /* RUAAudioDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DE5F211D2A91D90067BC3C /* RUAAudioDemoUITests.swift */; };
-		E1DE5F371D2A92730067BC3C /* RUAAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = E1DE5F361D2A92730067BC3C /* RUAAudio.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E1DE5F3B1D2A92730067BC3C /* RUAAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1DE5F341D2A92730067BC3C /* RUAAudio.framework */; };
 		E1DE5F3C1D2A92730067BC3C /* RUAAudio.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E1DE5F341D2A92730067BC3C /* RUAAudio.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E1DE5F421D2A92960067BC3C /* RUAGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DE5F411D2A92960067BC3C /* RUAGraph.swift */; };
 		E1DE5F451D2A92A80067BC3C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1DE5F441D2A92A80067BC3C /* AudioToolbox.framework */; };
+		E1EA30531D2B9EE900F1067F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1EA30521D2B9EE900F1067F /* AVFoundation.framework */; };
+		E1EA30591D2BB65100F1067F /* RUAAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = E1DE5F361D2A92730067BC3C /* RUAAudio.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E1EA305A1D2BB65A00F1067F /* RUAGraph.swift in Headers */ = {isa = PBXBuildFile; fileRef = E1DE5F411D2A92960067BC3C /* RUAGraph.swift */; settings = {ATTRIBUTES = (Public, ); }; };
+		E1EA305C1D2BB76A00F1067F /* RUAGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DE5F411D2A92960067BC3C /* RUAGraph.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,7 +52,7 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		E1DE5F401D2A92730067BC3C /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
@@ -80,6 +83,7 @@
 		E1DE5F381D2A92730067BC3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1DE5F411D2A92960067BC3C /* RUAGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RUAGraph.swift; sourceTree = "<group>"; };
 		E1DE5F441D2A92A80067BC3C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		E1EA30521D2B9EE900F1067F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1EA30531D2B9EE900F1067F /* AVFoundation.framework in Frameworks */,
 				E1DE5F3B1D2A92730067BC3C /* RUAAudio.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -175,8 +180,8 @@
 			isa = PBXGroup;
 			children = (
 				E1DE5F361D2A92730067BC3C /* RUAAudio.h */,
-				E1DE5F381D2A92730067BC3C /* Info.plist */,
 				E1DE5F411D2A92960067BC3C /* RUAGraph.swift */,
+				E1DE5F381D2A92730067BC3C /* Info.plist */,
 			);
 			path = RUAAudio;
 			sourceTree = "<group>";
@@ -184,6 +189,7 @@
 		E1DE5F431D2A92A80067BC3C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E1EA30521D2B9EE900F1067F /* AVFoundation.framework */,
 				E1DE5F441D2A92A80067BC3C /* AudioToolbox.framework */,
 			);
 			name = Frameworks;
@@ -196,7 +202,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1DE5F371D2A92730067BC3C /* RUAAudio.h in Headers */,
+				E1EA30591D2BB65100F1067F /* RUAAudio.h in Headers */,
+				E1EA305A1D2BB65A00F1067F /* RUAGraph.swift in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -377,6 +384,7 @@
 			files = (
 				E1DE5F011D2A91D90067BC3C /* ViewController.swift in Sources */,
 				E1DE5F071D2A91D90067BC3C /* RUAAudioDemo.xcdatamodeld in Sources */,
+				E1EA305C1D2BB76A00F1067F /* RUAGraph.swift in Sources */,
 				E1DE5EFF1D2A91D90067BC3C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -699,6 +707,7 @@
 				E1DE5F3E1D2A92730067BC3C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
