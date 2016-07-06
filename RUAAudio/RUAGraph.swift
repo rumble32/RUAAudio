@@ -19,7 +19,7 @@ struct RUAAudoUnitInfo {
 let kIOUnitInputBus: UInt32 = 1;
 let kIOUnitOutputBus: UInt32 = 0;
 
-//
+//mixer unit bus
 let kMixerMicrophoneInputBus: UInt32 = 0;
 let kMixerBgOneInputBus: UInt32 = 1;
 
@@ -29,6 +29,8 @@ class RUAGraph: NSObject {
     var audioGraph: AUGraph?
     
     var ioUnitInfo: RUAAudoUnitInfo?
+    
+    var convertUnitInfo: RUAAudoUnitInfo?
     var mixerNo1UnitInfo: RUAAudoUnitInfo?
 
     var mixerNo2UnitInfo: RUAAudoUnitInfo?
@@ -52,8 +54,11 @@ class RUAGraph: NSObject {
             print("NewAUGraph status = \(status)")
         }
         
-        // Set up io
+        // Set up I/O
         ioUnitInfo = setupAudioUnit(toGraph: audioGraph!, componentType: kAudioUnitType_Output, componentSubType: kAudioUnitSubType_VoiceProcessingIO)
+        
+        // Set up convert
+        convertUnitInfo = setupAudioUnit(toGraph: audioGraph!, componentType: kAudioUnitType_FormatConverter, componentSubType: kAudioUnitSubType_NewTimePitch)
         
         // Set up mixer No.1
         mixerNo1UnitInfo = setupAudioUnit(toGraph: audioGraph!, componentType: kAudioUnitType_Mixer, componentSubType:kAudioUnitSubType_MultiChannelMixer)
@@ -68,6 +73,11 @@ class RUAGraph: NSObject {
         status = AUGraphNodeInfo(audioGraph!, ioUnitInfo!.node, nil, &(ioUnitInfo!.audioUnit))
         if (noErr != status) {
             print("AUGraphNodeInfo ioUnit status = \(status)")
+        }
+        
+        status = AUGraphNodeInfo(audioGraph!, convertUnitInfo!.node, nil, &(convertUnitInfo!.audioUnit))
+        if (noErr != status) {
+            print("AUGraphNodeInfo convertUnit status = \(status)")
         }
         
         status = AUGraphNodeInfo(audioGraph!, mixerNo1UnitInfo!.node, nil, &(mixerNo1UnitInfo!.audioUnit))
@@ -105,6 +115,14 @@ class RUAGraph: NSObject {
                             &(self.inputFormat!),
                             propSize)
         
+
+        status = AudioUnitSetParameter(
+                            convertUnitInfo!.audioUnit!,
+                            kNewTimePitchParam_Pitch,
+                            kAudioUnitScope_Global,
+                            0,
+                            800,
+                            0)
 
         //mixer No.1
         var mixerInputCount: UInt32 = 2
@@ -146,7 +164,13 @@ class RUAGraph: NSObject {
         
         
         // Connect nodes of the audioGraph
-        status = AUGraphConnectNodeInput(audioGraph!, ioUnitInfo!.node, kIOUnitInputBus, mixerNo1UnitInfo!.node, kMixerMicrophoneInputBus)
+        //status = AUGraphConnectNodeInput(audioGraph!, ioUnitInfo!.node, kIOUnitInputBus, mixerNo1UnitInfo!.node, kMixerMicrophoneInputBus)
+        
+        //
+        status = AUGraphConnectNodeInput(audioGraph!, ioUnitInfo!.node, kIOUnitInputBus, convertUnitInfo!.node, 0)
+        
+        //
+        status = AUGraphConnectNodeInput(audioGraph!, convertUnitInfo!.node, 0, mixerNo1UnitInfo!.node, kMixerMicrophoneInputBus)
         
         //
         status = AUGraphConnectNodeInput(audioGraph!, mixerNo1UnitInfo!.node, 0, mixerNo2UnitInfo!.node, kMixerMicrophoneInputBus)
